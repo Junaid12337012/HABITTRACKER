@@ -15,6 +15,7 @@ const initialLifeData = {
 };
 
 export interface IUser extends Document {
+    _id: mongoose.Types.ObjectId;
     email: string;
     password?: string;
     lifeData: any;

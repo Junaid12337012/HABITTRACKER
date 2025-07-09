@@ -74,7 +74,11 @@ export const deleteAccount = async (req: Request, res: Response) => {
     try {
         // This is a highly destructive operation.
         // It will delete all collections from the database.
-        const collections = await mongoose.connection.db.collections();
+        const db = mongoose.connection.db;
+        if (!db) {
+            return res.status(500).json({ message: 'Database connection not initialized' });
+        }
+        const collections = await db.collections();
 
         for (const collection of collections) {
             await collection.deleteMany({});
