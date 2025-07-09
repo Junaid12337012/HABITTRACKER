@@ -1,0 +1,14 @@
+# Netlify configuration for HABITTRACKER frontend build
+# Docs: https://docs.netlify.com/configure-builds/file-based-configuration/
+
+[build]
+  # Run all commands from the frontend folder
+  base = "frontend"
+  # Build the production bundle using Vite
+  command = "npm run build"
+  # Publish the generated dist folder
+  publish = "dist"
+
+# (Optional) set the Node.js version if required
+# [build.environment]
+#   NODE_VERSION = "20"
