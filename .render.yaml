@@ -3,7 +3,7 @@ services:
     name: habit-backend
     rootDir: backend
     runtime: node
-    buildCommand: npm run build:full
+    buildCommand: npm run build
     startCommand: node dist/server.js
     envVars:
       - key: NODE_ENV
