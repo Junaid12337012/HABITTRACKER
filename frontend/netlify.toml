@@ -9,6 +9,9 @@
   # Publish the generated dist folder
   publish = "dist"
 
+[build.environment]
+  VITE_API_URL = "https://habittracker-tgw3.onrender.com"
+
 # (Optional) set the Node.js version if required
 # [build.environment]
 #   NODE_VERSION = "20"
