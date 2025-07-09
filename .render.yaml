@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: habit-backend
+    rootDir: backend
+    runtime: node
+    buildCommand: npm run build:full
+    startCommand: node dist/server.js
+    envVars:
+      - key: NODE_ENV
+        value: production

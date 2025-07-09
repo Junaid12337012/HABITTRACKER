@@ -29,18 +29,24 @@ app.use('/api/ai', aiRoutes);
 app.use('/api', apiRoutes);
 
 // --- Static frontend (production build) ---
+import fs from 'fs';
 // When you build the Vite frontend, its output should be in ../frontend/dist
 // We serve that folder in prod so the same origin is used for API & client
 const frontendDist = path.join(__dirname, '..', '..', 'frontend', 'dist');
-app.use(express.static(frontendDist));
 
-// Fallback to index.html for SPA routes (only if not hitting /api/*)
-app.get('*', (req, res) => {
-    if (req.path.startsWith('/api/')) {
-        return res.status(404).json({ message: 'API endpoint not found.' });
-    }
-    res.sendFile(path.join(frontendDist, 'index.html'));
-});
+if (fs.existsSync(frontendDist)) {
+    app.use(express.static(frontendDist));
+
+    // Fallback to index.html for SPA routes (only if not hitting /api/*)
+    app.get('*', (req, res) => {
+        if (req.path.startsWith('/api/')) {
+            return res.status(404).json({ message: 'API endpoint not found.' });
+        }
+        res.sendFile(path.join(frontendDist, 'index.html'));
+    });
+} else {
+    console.warn('⚠️  Frontend build not found – skipping static file serving.');
+}
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
